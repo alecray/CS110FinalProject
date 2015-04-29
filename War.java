@@ -1,12 +1,17 @@
 import java.util.*;
 
+// runs the war game itself
 public class War
 {
+   // Arraylist to hold the cards on the table
    private ArrayList<Card> tableCards = new ArrayList<Card>();
    
    // initialize deck
    private Deck myDeck = new Deck();
    
+   /**
+   Constructor
+   */
    public War()
    {
       // shuffle the deck
@@ -15,7 +20,12 @@ public class War
       myDeck.deal();
       
    }
-
+   
+   /**
+   draw
+   Draws cards from the deck, clears table cards if there isn't a war
+   @param isWar is there a war happening
+   */
    public void draw(boolean isWar)
    {
       if(isWar == false)
@@ -32,6 +42,11 @@ public class War
       System.out.println("Computer draws a " + tableCards.get(1));
    }
    
+   /**
+   getCardImage
+   @param playerOrComputer player or computer card image?
+   @return the name of the card file
+   */
    public String getCardImage(int playerOrComputer)
    {
       String myString = "";
@@ -51,15 +66,20 @@ public class War
       return myString;
    }
    
+   /**
+   getHandAmount
+   the number of cards in hand
+   @param playerOrComputer player or computer hand?
+   @return the number of cards in hand
+   */
    public int getHandAmount(int playerOrComputer)
    {
          return myDeck.getHandSize(playerOrComputer);
    }
-   /*
-   public void war()
-   {
-      
-   }
+   
+   /**
+   compare
+   @return whether the player wins or the computer wins the round
    */
    public int compare()
    {
@@ -67,8 +87,10 @@ public class War
       int result = 5;
       try
       {
+         // compare the cards
          result = myDeck.check(tableCards.get(0),tableCards.get(1));
          
+         // do something based off result
          if(result == 0)
          {
             System.out.println("Player wins!");
@@ -89,38 +111,8 @@ public class War
             myDeck.shift(1,1);
             myDeck.shift(1,0);
          }
-            /*
-            boolean war = true;
-            while(war == true)
-            {
-               
-               int whoWins = myDeck.war(tableCards.get(1),tableCards.get(0)); // player, computer
-               if (whoWins == 0)
-               {
-               
-                  System.out.println("Player wins war!");
-                  myDeck.addCards(tableCards,0);
-                  war = false;
-               }
-               else if (whoWins == 1)
-               {
-                  System.out.println("Computer wins war!");
-                  myDeck.addCards(tableCards,1);
-                  war = false;
-               }
-               else
-               { 
-                  System.out.println("War again!");
-               }
-            }
-            
-            
-         }
-         else
-         {
-            System.out.println("Error.");
-         }*/
       }
+      // if either of the hands are empty, the game ends
       catch(ArrayIndexOutOfBoundsException e)
       {
          result = 4;
@@ -129,6 +121,11 @@ public class War
       
    } 
    
+   /**
+   getHandSizes
+   get the size of both hands as a string. this was for debugging.
+   @return the sizes of both hands as a string
+   */
    public String getHandSizes()
    {
       String totalNum = Integer.toString(myDeck.getHandSize(0) + myDeck.getHandSize(1));

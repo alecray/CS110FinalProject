@@ -25,6 +25,10 @@ public class WarGUI extends JFrame
    private JLabel playerCard, computerCard, backCardOne, backCardTwo;
    
    private boolean war = false; // whether a war is happening or not
+   
+   /**
+   Constructor
+   */
    public WarGUI()
    {
       
@@ -57,6 +61,7 @@ public class WarGUI extends JFrame
       playerCard = new JLabel(new ImageIcon("gfx/back.jpg"));
       computerCard = new JLabel(new ImageIcon("gfx/back.jpg"));
       backCardTwo = new JLabel(new ImageIcon("gfx/back.jpg"));
+      
       // ADD TO PANE
       topPanel.add(mainText);
       gamePanel.add(backCardOne);
@@ -65,43 +70,56 @@ public class WarGUI extends JFrame
       bottomPanel.add(drawButton);
       gamePanel.add(backCardTwo);
       
+      // ADD PANELS TO WINDOW
       add(topPanel);
       add(gamePanel);
       add(bottomPanel);
       
+      // CONFIG
       setTitle("War Card Game");
       setSize(WIDTH,HEIGHT);
       setVisible(true);
       backCardOne.setVisible(false);
       backCardTwo.setVisible(false);
       setDefaultCloseOperation(EXIT_ON_CLOSE);
-      
-      System.out.println(game.getHandSizes());
    }
    
+   /**
+   ButtonListener
+   Checks if button was pressed
+   */
    private class ButtonListener implements ActionListener
    {
+      /**
+      actionPerformed
+      @param e the event
+      */
       public void actionPerformed(ActionEvent e)
       {
+         // if war is true, show the upside-down cards
          if(war == true)
          {
             backCardOne.setVisible(true);
             backCardTwo.setVisible(true);
          }
+         // else dont
          else if(war == false)
          {
             backCardOne.setVisible(false);
             backCardTwo.setVisible(false);
          }
          
+         // draw the window and cards
          drawButton.setText("Draw");
          mainText.setText("Drawing...");
          game.draw(war);
          String playerPath = "gfx/" + game.getCardImage(0) + ".jpg";
          String computerPath = "gfx/" + game.getCardImage(1) + ".jpg";
          
+         // compare cards
          int compare = game.compare();
          
+         // do something based off this
          if(compare == 0)
          {
             mainText.setText("Player wins!");
@@ -143,15 +161,12 @@ public class WarGUI extends JFrame
       }
    }
    
+   /**
+   setText
+   @param yourText the text you'd like to set
+   */
    public void setText(String yourText)
    {
       gameText = yourText;
    }
-   
-   /*
-   public void setCardImages()
-   {
-      game.
-   }
-   */
 }
